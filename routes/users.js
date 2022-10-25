@@ -2,6 +2,7 @@ const express = require('express');
 const connection = require("../database/connection")
 const router = express.Router();
 
+// GET /users
 router.get('/', function (_req, res, _next) {
   connection.query(
     'SELECT * from users;',
@@ -11,6 +12,7 @@ router.get('/', function (_req, res, _next) {
     })
 });
 
+// GET /users/1
 router.get('/:id', function (req, res, _next) {
   const { id } = req.params
 
@@ -23,6 +25,7 @@ router.get('/:id', function (req, res, _next) {
     })
 });
 
+// POST /users
 router.post('/', function (req, res, _next) {
   const { username, password, first_name, last_name, email, tel } = req.body
 
@@ -35,6 +38,7 @@ router.post('/', function (req, res, _next) {
     })
 });
 
+// PUT /users/1
 router.put('/:id', function (req, res, _next) {
   const { id } = req.params
   const { username, password, first_name, last_name, email, tel, status } = req.body
@@ -48,6 +52,7 @@ router.put('/:id', function (req, res, _next) {
     })
 });
 
+// DELETE /users/1
 router.delete('/:id', function (req, res, _next) {
   const { id } = req.params
 
