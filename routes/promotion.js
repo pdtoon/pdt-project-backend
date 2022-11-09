@@ -5,7 +5,7 @@ const router = express.Router();
 // GET /users
 router.get('/', function (_req, res, _next) {
   connection.query(
-    'SELECT * from user;',
+    'SELECT * from promotion;',
     (err, rows) => {
       if (err) throw err
       res.json(rows);
@@ -17,7 +17,7 @@ router.get('/:id', function (req, res, _next) {
   const { id } = req.params
 
   connection.query(
-    'SELECT * from user WHERE id = ?;',
+    'SELECT * from promotion WHERE id = ?;',
     id,
     (err, rows) => {
       if (err) throw err
@@ -27,11 +27,11 @@ router.get('/:id', function (req, res, _next) {
 
 // POST /users
 router.post('/', function (req, res, _next) {
-  const { username, password, firstname, lastname, email, tel } = req.body
+  const { code, name, price } = req.body
 
   connection.query(
-    'INSERT INTO user (username, password, firstname, lastname, email, tel) VALUES (?, ?, ?, ?, ?, ?);',
-    [username, password, firstname, lastname, email, tel],
+    'INSERT INTO promotion (code, name, price) VALUES (?, ?, ?);',
+    [code, name, price],
     (err, rows) => {
       if (err) throw err
       res.json({ id: rows.insertId });
@@ -41,11 +41,11 @@ router.post('/', function (req, res, _next) {
 // PUT /users/1
 router.put('/:id', function (req, res, _next) {
   const { id } = req.params
-  const { username, password, firstname, lastname, email, tel, status } = req.body
+  const { code, name, price } = req.body
 
   connection.query(
-    'UPDATE user SET username=?, password=?, firstname=?, lastname=?, email=?, tel=?, status=? WHERE id = ?;',
-    [username, password, firstname, lastname, email, tel, status, id],
+    'UPDATE promotion SET code=?, name=?, price=? WHERE id = ?;',
+    [code, name, price, id],
     (err, _rows) => {
       if (err) throw err
       res.json({ id });
@@ -57,7 +57,7 @@ router.delete('/:id', function (req, res, _next) {
   const { id } = req.params
 
   connection.query(
-    'DELETE FROM user WHERE id = ?;',
+    'DELETE FROM promotion WHERE id = ?;',
     id,
     (err, _rows) => {
       if (err) throw err

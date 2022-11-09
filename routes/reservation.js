@@ -5,7 +5,7 @@ const router = express.Router();
 // GET /users
 router.get('/', function (_req, res, _next) {
   connection.query(
-    'SELECT * from user;',
+    'SELECT * from reservation;',
     (err, rows) => {
       if (err) throw err
       res.json(rows);
@@ -17,7 +17,7 @@ router.get('/:id', function (req, res, _next) {
   const { id } = req.params
 
   connection.query(
-    'SELECT * from user WHERE id = ?;',
+    'SELECT * from reservation WHERE id = ?;',
     id,
     (err, rows) => {
       if (err) throw err
@@ -27,11 +27,11 @@ router.get('/:id', function (req, res, _next) {
 
 // POST /users
 router.post('/', function (req, res, _next) {
-  const { username, password, firstname, lastname, email, tel } = req.body
+  const { userid, meetingroomid, start, stop, totalprice, status } = req.body
 
   connection.query(
-    'INSERT INTO user (username, password, firstname, lastname, email, tel) VALUES (?, ?, ?, ?, ?, ?);',
-    [username, password, firstname, lastname, email, tel],
+    'INSERT INTO reservation (userid, meetingroomid, start, stop, totalprice, status) VALUES (?, ?, ?, ?, ?, ?);',
+    [userid, meetingroomid, start, stop, totalprice, status],
     (err, rows) => {
       if (err) throw err
       res.json({ id: rows.insertId });
@@ -41,11 +41,11 @@ router.post('/', function (req, res, _next) {
 // PUT /users/1
 router.put('/:id', function (req, res, _next) {
   const { id } = req.params
-  const { username, password, firstname, lastname, email, tel, status } = req.body
+  const { userid, meetingroomid, start, stop, totalprice, status } = req.body
 
   connection.query(
-    'UPDATE user SET username=?, password=?, firstname=?, lastname=?, email=?, tel=?, status=? WHERE id = ?;',
-    [username, password, firstname, lastname, email, tel, status, id],
+    'UPDATE reservation SET userid=?, meetingroomid=?, start=?, stop=?, totalprice=?, status=? WHERE id = ?;',
+    [userid, meetingroomid, start, stop, totalprice, status, id],
     (err, _rows) => {
       if (err) throw err
       res.json({ id });
@@ -57,7 +57,7 @@ router.delete('/:id', function (req, res, _next) {
   const { id } = req.params
 
   connection.query(
-    'DELETE FROM user WHERE id = ?;',
+    'DELETE FROM reservation WHERE id = ?;',
     id,
     (err, _rows) => {
       if (err) throw err
