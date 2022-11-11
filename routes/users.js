@@ -12,6 +12,15 @@ router.get('/', function (_req, res, _next) {
     })
 });
 
+router.get('/customer', function (_req, res, _next) {
+  connection.query(
+    'SELECT * from user WHERE role = 0;',
+    (err, rows) => {
+      if (err) throw err
+      res.json(rows);
+    })
+});
+
 // GET /users/1
 router.get('/:id', function (req, res, _next) {
   const { id } = req.params

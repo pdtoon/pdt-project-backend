@@ -27,11 +27,11 @@ router.get('/:id', function (req, res, _next) {
 
 // POST /users
 router.post('/', function (req, res, _next) {
-  const { code, name, price } = req.body
+  const { name, price, code } = req.body
 
   connection.query(
-    'INSERT INTO promotion (code, name, price) VALUES (?, ?, ?);',
-    [code, name, price],
+    'INSERT INTO promotion (name, price, code) VALUES (?, ?, ?);',
+    [name, price, code],
     (err, rows) => {
       if (err) throw err
       res.json({ id: rows.insertId });
@@ -41,11 +41,11 @@ router.post('/', function (req, res, _next) {
 // PUT /users/1
 router.put('/:id', function (req, res, _next) {
   const { id } = req.params
-  const { code, name, price } = req.body
+  const { name, price, code } = req.body
 
   connection.query(
-    'UPDATE promotion SET code=?, name=?, price=? WHERE id = ?;',
-    [code, name, price, id],
+    'UPDATE promotion SET name=?, price=?, code=?  WHERE id = ?;',
+    [name, price, code, id],
     (err, _rows) => {
       if (err) throw err
       res.json({ id });
