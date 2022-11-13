@@ -27,11 +27,11 @@ router.get('/:id', function (req, res, _next) {
 
 // POST /users
 router.post('/', function (req, res, _next) {
-  const {name, price,} = req.body
+  const {name, price} = req.body
 
   connection.query(
-    'INSERT INTO addonservice (name, price,) VALUES (?, ?);',
-    [name],
+    'INSERT INTO addonservice (name, price) VALUES (?, ?);',
+    [name, price],
     (err, rows) => {
       if (err) throw err
       res.json({ id: rows.insertId });
