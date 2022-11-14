@@ -44,7 +44,7 @@ router.put('/:id', function (req, res, _next) {
   const { roomnumber, name, support, detail, price, status, image } = req.body
 
   connection.query(
-    'UPDATE meetingroom SET roomnumber=?, name=?, support=?, detail=?, price=?, tel=?, status=?, image=? WHERE id = ?;',
+    'UPDATE meetingroom SET roomnumber=?, name=?, support=?, detail=?, price=?, status=?, image=? WHERE id = ?;',
     [roomnumber, name, support, detail, price, status, image, id],
     (err, _rows) => {
       if (err) throw err
