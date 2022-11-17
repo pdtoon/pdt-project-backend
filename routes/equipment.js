@@ -41,11 +41,11 @@ router.post('/', function (req, res, _next) {
 // PUT /users/1
 router.put('/:id', function (req, res, _next) {
   const { id } = req.params
-  const {name} = req.body
+  const { name, price} = req.body
 
   connection.query(
-    'UPDATE equipment SET name=? WHERE id = ?;',
-    [name, id],
+    'UPDATE equipment SET name=?, price=? WHERE id = ?;',
+    [name, price, id],
     (err, _rows) => {
       if (err) throw err
       res.json({ id });
